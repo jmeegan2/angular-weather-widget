@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<div id="divWeatherMain">
+    <div class="weatherWidgetRow">
+        <label for="cityInput">Enter City Name:</label>
+        <input type="text" id="cityInput" [(ngModel)]="city" (keydown.enter)="fetchWeatherData()" />
+        <button (click)="fetchWeatherData()">Get Weather</button>
+    </div>
+
+    <div *ngIf="WeatherData" class="weatherWidgetRow">
+        <h2>{{ WeatherData.name }}</h2>
+        <p class="temperature">Temperature: {{ WeatherData.main.temp }}°F</p>
+        <p>Weather: {{ WeatherData.weather[0].description }}</p>
+        <p>Wind Speed: {{ WeatherData.wind.speed }} mph</p>
+        <p>Cloudiness: {{ WeatherData.clouds.all }}% <i class="fas fa-cloud cloud-icon"></i></p>
+        <p class="sun" >Sunrise: {{ convertUnixTimestampToTime(WeatherData.sys.sunrise) }} <i class="fas fa-sun sun-icon"></i></p>
+        <p class="moon" >Sunset: {{ convertUnixTimestampToTime(WeatherData.sys.sunset) }} <i class="fas fa-moon moon-icon"></i></p>
+    </div>
+
+    <p class="loading-message" *ngIf="!WeatherData">Enter Location</p>
+</div>
